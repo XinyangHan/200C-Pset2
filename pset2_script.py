@@ -127,6 +127,7 @@ def preprocess_text(notes_df):
 
 
 def shap_text(vec, X_train, y_train, text_to_explain, output_prefix="text"):
+
     """Generate SHAP explanation for a text sample."""
     model = LinearSVC().fit(X_train, y_train)
     explainer = shap.LinearExplainer(model, X_train)
