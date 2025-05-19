@@ -126,7 +126,8 @@ def preprocess_text(notes_df):
     return vec, X_train, X_test, y_train, y_test
 
 
-def shap_text(vec, X_train, text_to_explain, output_prefix="text"):
+def shap_text(vec, X_train, y_train, text_to_explain, output_prefix="text"):
+
     """Generate SHAP explanation for a text sample."""
     model = LinearSVC().fit(X_train, y_train)
     explainer = shap.LinearExplainer(model, X_train)
@@ -158,9 +159,9 @@ def main():
     evaluate_model(model, X_test, y_test)
     shap_tabular(model, X)
 
-    vec, X_train_text, X_test_text, y_train, y_test = preprocess_text(notes_df)
+    vec, X_train_text, X_test_text, y_train_text, y_test_text = preprocess_text(notes_df)
     text_to_explain = "Pt is worsening with liver failure, will transfer to surgery"
-    shap_text(vec, X_train_text, text_to_explain)
+    shap_text(vec, X_train_text, y_train_text, text_to_explain)
 
 
 if __name__ == "__main__":
